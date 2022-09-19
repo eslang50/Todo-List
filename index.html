@@ -5,11 +5,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todo List</title>
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </head>
 <body>
-  <div id="content">
-    
+  <div class="layout">
+    <h1 class="header">To do List</h1>
+    <div class="sidebar">
+      <h2>Your Projects</h2>
+      <div id="projects">
+
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="new-task"><input id="input-task" type="text"><button id="add-task">+</button></div>
+    </div>
   </div>
 </body>
 </html>
