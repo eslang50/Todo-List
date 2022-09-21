@@ -104,7 +104,7 @@ body {
 }
 
 #project-form {
-  opacity: 0.5;
+  opacity: 0;
   display: flex;
   justify-content: center;
 

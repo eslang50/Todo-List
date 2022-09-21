@@ -1,14 +1,10 @@
 import { display, displayProjects, addProjectForm, submitProjectForm, displayInbox, displayToday, displayWeek, displayProject } from "./display";
 
-displayProjects();
-addProjectForm();
-submitProjectForm();
+window.addEventListener('DOMContentLoaded', displayProjects(), addProjectForm(), displayProject());
 
 
-displayInbox();
-displayToday();
-displayWeek();
-displayProject();
+
+
 
 
 

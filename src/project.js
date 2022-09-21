@@ -5,6 +5,8 @@ export default class Project {
   }
 
   setName(name) {
+    if(name === '')
+      return
     this.name = name;
   } 
 
