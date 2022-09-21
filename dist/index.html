@@ -8,17 +8,33 @@
   <script src="main.js" defer></script>
 </head>
 <body>
-  <div class="layout">
+  <div id="layout">
+    
     <h1 class="header">To do List</h1>
     <div class="sidebar">
-      <h2>Your Projects</h2>
+      <div class="add-project">
+        <h2>Your Projects</h2><button id="add-project-button">+</button>
+      </div>
       <div id="projects">
 
       </div>
+      <form id="project-form" action="#" method="get" onsubmit="return submitProjectForm()">
+        <div class="name-input">
+          <label for="name">Project name:</label>
+          <input id="name" type="text">
+          <button id="add-button" type="submit">Add</button>
+        </div>
+      </form>
     </div>
     <div class="main-content">
-      <div class="new-task"><input id="input-task" type="text"><button id="add-task">+</button></div>
+      <button id="add-task">+</button></div>
     </div>
   </div>
+  <!-- <script>
+    function submitProjectForm() {
+      console.log(document.getElementById('name').value)
+      document.querySelector('form').reset()
+    }
+  </script> -->
 </body>
 </html>

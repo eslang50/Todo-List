@@ -1,6 +1,8 @@
 body {
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 0;
 }
 
 
@@ -10,22 +12,41 @@ body {
   grid-column: 2 / 4;
 }
 
-h2 {
+.add-project {
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+#add-project-button {
+  background: none;
+  border: none;
+  font-size: 26px;
+  height: fit-content;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+#add-project-button:hover {
+  background-color: lightgray;
+  opacity: 0.8;
+  border-radius: 4px;
+
 }
 
 .sidebar {
   grid-column: 1 / 2;
   border: 1px black solid;
-  height: 800px;
 }
 
 .main-content {
   border: 1px black solid;
+  height: 100vh;
+  position: relative;
 }
 
-.layout {
+#layout {
   display: grid;
   grid-template-columns: 1fr 4fr;
 }
@@ -44,7 +65,12 @@ h2 {
 
 #add-task {
   font-size: 25px;
-  padding: 6px 12px;
+  background: none;
+  border: none;
+  padding: 2px 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .project-list {
@@ -56,4 +82,48 @@ h2 {
 .project {
   padding: 10px 0;
   font-size: 20px;
+  cursor: pointer;
 }
+
+.project-header {
+  display: flex;
+  justify-content: center;
+}
+
+.new-project-form {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 400px;
+  height: 600px;
+  background-color: white;
+  border-radius: 5px;
+  z-index: 10;
+}
+
+#project-form {
+  opacity: 0.5;
+  display: flex;
+  justify-content: center;
+
+}
+
+
+.name-input {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 60%;
+}
+
+.name-input > label {
+  text-align: center;
+}
+
+
+
+
