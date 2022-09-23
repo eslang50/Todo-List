@@ -20,7 +20,7 @@ export default class Todo {
   }
 
   getProject(name) {
-    return this.projects.find((project) => projects.getName() === name);
+    return this.projects.find((project) => project.getName() === name);
   }
 
   addProject(project) {
@@ -28,7 +28,8 @@ export default class Todo {
   }
 
   deleteProject(name) {
-    return this.projects.filter((project) => project.name !== name);
+    const del = this.projects.find((project) => project.getName() === name)
+    this.projects.splice(this.projects.indexOf(del), 1);
   }
 
-}
+} 

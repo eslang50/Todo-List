@@ -19,7 +19,7 @@ body {
   gap: 5px;
 }
 
-#add-project-button {
+#add-project-button, #remove-project-button {
   background: none;
   border: none;
   font-size: 26px;
@@ -28,7 +28,7 @@ body {
   cursor: pointer;
 }
 
-#add-project-button:hover {
+#add-project-button:hover, #remove-project-button:hover {
   background-color: lightgray;
   opacity: 0.8;
   border-radius: 4px;

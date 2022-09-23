@@ -13,21 +13,22 @@
     <h1 class="header">To do List</h1>
     <div class="sidebar">
       <div class="add-project">
-        <h2>Your Projects</h2><button id="add-project-button">+</button>
+        <h2>Your Projects</h2><button id="add-project-button">+</button><button id="remove-project-button">-</button>
       </div>
       <div id="projects">
 
       </div>
-      <form id="project-form" action="#" method="get" onsubmit="return submitProjectForm()">
+      <form id="project-form" action="#" method="get">
         <div class="name-input">
-          <label for="name">Project name:</label>
-          <input id="name" type="text">
+          <label for="name" id="project-label">Project name:</label>
+          <input id="name" type="text" required>
           <button id="add-button" type="submit">Add</button>
         </div>
       </form>
     </div>
     <div class="main-content">
       <button id="add-task">+</button></div>
+      
       <div></div>
     </div>
   </div>

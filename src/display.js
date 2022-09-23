@@ -4,7 +4,7 @@ import Task from './task';
 import Todo from './todos';
 import { add } from 'date-fns';
 
-const todos = new Todo();
+let todos = new Todo();
 
 // displays projects on sidebar
 export function displayProjects() {
@@ -18,24 +18,71 @@ export function displayProjects() {
     const project = document.createElement('div');
     project.classList.add('project');
     
-    project.innerHTML = `${p.getName()}`
+    project.innerHTML = `${p.getName()}`;
     projects.appendChild(project);
   })
 
 }
 
-// causes the project form to appear
-export function addProjectForm() {
-
-  const addProjectButton = document.getElementById('add-project-button');
-  const layout = document.getElementById('layout')
-  const addProjects = document.getElementById('add-project');
+// causes form to appear
+export function removeProject() {
+  const removeBtn = document.getElementById('remove-project-button');
+  const addBtn = document.getElementById('add-button');
   
-  addProjectButton.addEventListener('click', function(){
-    const newProjectForm = document.getElementById('project-form')
+  removeBtn.addEventListener('click', function() {
+    addBtn.innerHTML = 'Remove';
+    const newProjectForm = document.getElementById('project-form');
     newProjectForm.style.opacity = 1;
+    newProjectForm.setAttribute('onsubmit', 'return removeProjectForm()');
   })
 
+}
+
+// for onsubmit function to remove specific project
+export function removeProjectForm() {
+  
+  const form = document.querySelector('form');
+  const projectName = document.getElementById('name').value;
+ 
+  todos.deleteProject(projectName);
+
+  console.table(todos.getProjects())
+  
+  // makes form disappear after submitting
+  const newProjectForm = document.getElementById('project-form')  
+  newProjectForm.style.opacity = 0;
+
+  const projects = document.getElementById('projects')
+
+  // delete the original in order to append the newly modified one
+  while(projects.firstChild) {
+    projects.removeChild(projects.lastChild);
+  }
+
+  // displays in sidebar
+  displayProjects();
+
+  // for headers in main content
+  displayProject();
+
+  form.reset();
+  return false;
+}
+
+window.removeProjectForm = removeProjectForm;
+
+// causes the project form to appear
+export function addProject() {
+
+  const addProjectButton = document.getElementById('add-project-button');
+  const addBtn = document.getElementById('add-button')
+  
+  addProjectButton.addEventListener('click', function(){
+    const newProjectForm = document.getElementById('project-form');
+    addBtn.innerHTML = 'Add'
+    newProjectForm.style.opacity = 1;
+    newProjectForm.setAttribute('onsubmit', 'return submitProjectForm()');
+  })
 
 }
 
@@ -90,7 +137,6 @@ export function displayProject() {
       mainContent.appendChild(projectHeader);
     })
   }
-  
 }
 
 
