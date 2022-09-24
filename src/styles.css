@@ -28,7 +28,7 @@ body {
   cursor: pointer;
 }
 
-#add-project-button:hover, #remove-project-button:hover {
+#add-project-button:hover, #remove-project-button:hover, #add-task:hover {
   background-color: lightgray;
   opacity: 0.8;
   border-radius: 4px;
@@ -124,6 +124,44 @@ body {
   text-align: center;
 }
 
+.add-task-form {
+  margin: 0 auto;
+  width: 400px;
+  height: 150px;
+  border: black 1px solid;
+}
 
+.title-input {
+  border: none;
+  border: 1px gray solid;
+  font-size: 1.5em;
+  border-radius: 4px;
+}
 
+.input-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.input-container > label {
+  font-size: 1.5em;
+  padding-top: 3px;
+}
+
+.task-description {
+  width: 300px;
+  height: 50px;
+  display: block;
+  margin-top: 10px;
+  margin-left: 10px;
+  resize: none;
+}
+
+.due-date-picker {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-right: 187px;
+}
 

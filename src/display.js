@@ -59,6 +59,9 @@ export function removeProjectForm() {
     projects.removeChild(projects.lastChild);
   }
 
+  const mainContent = document.querySelector('.main-content')
+  mainContent.removeChild(mainContent.lastChild);
+
   // displays in sidebar
   displayProjects();
 
@@ -139,5 +142,49 @@ export function displayProject() {
   }
 }
 
+export function addTask() {
+  const addTaskButton = document.getElementById('add-task');
+  const mainContent = document.querySelector('.main-content');
+
+  const addTaskForm = document.createElement('form');
+  addTaskForm.classList.add('add-task-form');
+  addTaskForm.setAttribute('action', '#');
+  addTaskForm.setAttribute('method', 'get');
+
+  const inputContainer = document.createElement('div');
+  inputContainer.classList.add('input-container');
+  const titleLabel = document.createElement('label');
+  titleLabel.innerHTML = 'Title:'
+  const titleInput = document.createElement('input');
+  titleInput.classList.add('title-input');
+  inputContainer.appendChild(titleLabel);
+  inputContainer.appendChild(titleInput);
+  addTaskForm.appendChild(inputContainer);
+
+  const taskDescription = document.createElement('textarea');
+  taskDescription.classList.add('task-description');
+  addTaskForm.appendChild(taskDescription);
+
+  const dueDate = document.createElement('input');
+  dueDate.classList.add('due-date-picker')
+  dueDate.setAttribute('type', 'date')
+  addTaskForm.appendChild(dueDate)
+
+  const addTask = document.createElement('button');
+  addTask.innerHTML = 'Add Task'
+
+  addTaskForm.appendChild(addTask)
+
+  mainContent.appendChild(addTaskForm);
+
+
+  addTaskButton.addEventListener('click', function() {
+    mainContent.appendChild(addTaskForm);
+  })
+
+  addTask.addEventListener('click',function() {
+    mainContent.removeChild(mainContent.lastChild);
+  })
+}
 
 
