@@ -194,7 +194,7 @@ export function displayTasks() {
 
   const taskContent = document.getElementById('tasks')
   const tasksContainer = document.createElement('div')
-
+  tasksContainer.classList.add('tasks-container')
   const tasks = project.tasks;
   
   console.table(tasks)
@@ -203,11 +203,12 @@ export function displayTasks() {
     while(taskContent.firstChild)
       taskContent.removeChild(taskContent.lastChild)
     const taskContainer = document.createElement('div')
+    taskContainer.classList.add('task-container')
     const taskTitle = task.getTitle();
     const taskDescription = task.getDescription();
     const taskDueDate = task.getDueDate();
 
-    taskContainer.innerHTML = `<strong>${taskTitle}</strong> <br>${taskDescription}`
+    taskContainer.innerHTML = `<strong>${taskTitle}</strong> <div id="task-date"><strong>Due date</strong></div> <i>${taskDescription}</i> <div id="date">${taskDueDate}</div>`
     tasksContainer.appendChild(taskContainer)
   }
   

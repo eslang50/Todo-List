@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300&display=swap');
+
 body {
   margin: 0;
   padding: 0;
   position: relative;
   z-index: 0;
+  background-color: aliceblue;
+  font-family: 'Jost', sans-serif;
 }
 
 
@@ -88,6 +92,7 @@ body {
 .project-header {
   display: flex;
   justify-content: center;
+  margin-top: 0;
 }
 
 .new-project-form {
@@ -120,6 +125,10 @@ body {
   width: 60%;
 }
 
+#name {
+  padding: 3px;
+}
+
 .name-input > label {
   text-align: center;
 }
@@ -130,13 +139,16 @@ body {
   height: 150px;
   border: black 1px solid;
   opacity: 0;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  
 }
 
 .title-input {
-  border: none;
-  border: 1px gray solid;
   font-size: 1.5em;
   border-radius: 4px;
+  padding: 5px;
 }
 
 .input-container {
@@ -163,7 +175,8 @@ body {
 .due-date-picker {
   margin-left: 10px;
   margin-top: 10px;
-  margin-right: 120px;
+  margin-right: 105px;
+  padding: 4px;
 }
 
 #add-task-button {
@@ -173,3 +186,45 @@ body {
 #tasks {
   margin: 0 20%;
 }
+
+.task-container {
+  padding: 10px;
+  background-color: rgb(221, 220, 220);
+  border-radius: 5px;
+  font-size: 22px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  margin-bottom: 10px;
+}
+
+#add-project-button, #remove-project-button, #add-task {
+  font-weight: bold;
+  
+}
+
+input, textarea {
+  background-color: rgb(231, 226, 226);
+  border-radius: 4px;
+  border: 1px solid black;
+}
+
+#add-button, #cancel, #add-task-button {
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  background-color: rgb(158, 173, 194);
+  font-family: 'Jost', sans-serif;  
+  color: white;
+  font-weight: bold;
+}
+
+#add-button:hover, #cancel:hover, #add-task-button:hover {
+  background-color: darkblue;
+}
+
+
+#task-date, #date {
+  display: flex;
+  justify-content: flex-end;
+}
+
