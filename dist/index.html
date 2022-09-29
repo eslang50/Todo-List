@@ -27,8 +27,21 @@
       </form>
     </div>
     <div class="main-content">
-      <button id="add-task">+</button></div>
-      
+      <button id="add-task">+</button>
+      <div id="project-header"></div>
+      <div id="tasks"></div>
+      <form action="#" method="get" class="add-task-form">
+        <div class="input-container">
+          <label for="title">Title:</label>
+          <input type="text" class="title-input" >
+        </div>
+        <textarea name="description" class="task-description" ></textarea>
+        <input type="date" class="due-date-picker" >
+        <button id="cancel" type="button">Cancel</button><button id="add-task-button" type="submit">Add Task</button>
+      </form>
+
+    </div>
+     
     </div>
   </div>
 </body>

@@ -51,7 +51,7 @@ export function removeProjectForm() {
   // makes form disappear after submitting
   const newProjectForm = document.getElementById('project-form')  
   newProjectForm.style.opacity = 0;
-
+  
   const projects = document.getElementById('projects')
 
   // delete the original in order to append the newly modified one
@@ -59,7 +59,7 @@ export function removeProjectForm() {
     projects.removeChild(projects.lastChild);
   }
 
-  const mainContent = document.querySelector('.main-content')
+  const mainContent = document.getElementById('project-header')
   mainContent.removeChild(mainContent.lastChild);
 
   // displays in sidebar
@@ -105,7 +105,7 @@ export function submitProjectForm() {
   project.innerHTML = `${newProject.getName()}`
 
   // removes previous projects header when adding new project
-  const mainContent = document.querySelector('.main-content')
+  const mainContent = document.getElementById('project-header')
   mainContent.removeChild(mainContent.lastChild);
   projects.appendChild(project);
 
@@ -124,11 +124,11 @@ window.submitProjectForm = submitProjectForm;
 // displays project name in main content
 export function displayProject() {
   const projects = document.querySelectorAll('.project')
-  const mainContent = document.querySelector('.main-content')
-
-  // to prevent removeChild from removing the button in main content
-  const dummy = document.createElement('div');
-  mainContent.appendChild(dummy);
+  const mainContent = document.getElementById('project-header')
+  const projectHeader = document.createElement('h1')
+  projectHeader.classList.add('project-header')
+  projectHeader.innerHTML = 'Inbox'
+  mainContent.appendChild(projectHeader);
 
   // iterates through projects which allows users to click on each project
   for(let project of projects) {
@@ -138,53 +138,80 @@ export function displayProject() {
       projectHeader.classList.add('project-header')
       projectHeader.innerHTML = project.textContent;
       mainContent.appendChild(projectHeader);
+      const taskContent = document.getElementById('tasks')
+      if(taskContent.firstChild)
+        taskContent.removeChild(taskContent.lastChild)
+      displayTasks();
     })
   }
 }
 
 export function addTask() {
   const addTaskButton = document.getElementById('add-task');
-  const mainContent = document.querySelector('.main-content');
-
-  const addTaskForm = document.createElement('form');
-  addTaskForm.classList.add('add-task-form');
-  addTaskForm.setAttribute('action', '#');
-  addTaskForm.setAttribute('method', 'get');
-
-  const inputContainer = document.createElement('div');
-  inputContainer.classList.add('input-container');
-  const titleLabel = document.createElement('label');
-  titleLabel.innerHTML = 'Title:'
-  const titleInput = document.createElement('input');
-  titleInput.classList.add('title-input');
-  inputContainer.appendChild(titleLabel);
-  inputContainer.appendChild(titleInput);
-  addTaskForm.appendChild(inputContainer);
-
-  const taskDescription = document.createElement('textarea');
-  taskDescription.classList.add('task-description');
-  addTaskForm.appendChild(taskDescription);
-
-  const dueDate = document.createElement('input');
-  dueDate.classList.add('due-date-picker')
-  dueDate.setAttribute('type', 'date')
-  addTaskForm.appendChild(dueDate)
-
-  const addTask = document.createElement('button');
-  addTask.innerHTML = 'Add Task'
-
-  addTaskForm.appendChild(addTask)
-
-  mainContent.appendChild(addTaskForm);
-
-
+  const addTaskForm = document.querySelector('.add-task-form');
+  const cancelButton = document.getElementById('cancel');
+  cancelButton.addEventListener('click', function() {
+    addTaskForm.reset();
+    addTaskForm.style.opacity = 0
+    return false;
+  })
+  
   addTaskButton.addEventListener('click', function() {
-    mainContent.appendChild(addTaskForm);
+    addTaskForm.setAttribute('onsubmit', 'return addTaskForm()')
+    addTaskForm.style.opacity = 1;
   })
 
-  addTask.addEventListener('click',function() {
-    mainContent.removeChild(mainContent.lastChild);
-  })
+}
+
+export function addTaskForm() {
+  const form = document.querySelector('.add-task-form')
+  const projectHeader = document.getElementById('project-header')
+  
+  const project = todos.getProject(projectHeader.lastChild.textContent);
+
+  const title = document.querySelector('.title-input').value
+  const description = document.querySelector('.task-description').value;
+  const dueDate = document.querySelector('.due-date-picker').value;
+
+  const newTask = new Task(title, description, dueDate);
+
+  project.addTask(newTask);
+  
+  form.style.opacity = 0;
+
+  displayTasks()
+  
+  form.reset();
+  // return false;
+}
+
+window.addTaskForm = addTaskForm;
+
+export function displayTasks() {
+  const projectHeader = document.getElementById('project-header')
+
+  const project = todos.getProject(projectHeader.lastChild.textContent);
+
+  const taskContent = document.getElementById('tasks')
+  const tasksContainer = document.createElement('div')
+
+  const tasks = project.tasks;
+  
+  console.table(tasks)
+
+  for(let task of tasks) {
+    while(taskContent.firstChild)
+      taskContent.removeChild(taskContent.lastChild)
+    const taskContainer = document.createElement('div')
+    const taskTitle = task.getTitle();
+    const taskDescription = task.getDescription();
+    const taskDueDate = task.getDueDate();
+
+    taskContainer.innerHTML = `<strong>${taskTitle}</strong> <br>${taskDescription}`
+    tasksContainer.appendChild(taskContainer)
+  }
+  
+  taskContent.appendChild(tasksContainer)
 }
 
 

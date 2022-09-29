@@ -129,6 +129,7 @@ body {
   width: 400px;
   height: 150px;
   border: black 1px solid;
+  opacity: 0;
 }
 
 .title-input {
@@ -162,6 +163,13 @@ body {
 .due-date-picker {
   margin-left: 10px;
   margin-top: 10px;
-  margin-right: 187px;
+  margin-right: 120px;
 }
 
+#add-task-button {
+  margin-left: 10px;
+}
+
+#tasks {
+  margin: 0 20%;
+}
