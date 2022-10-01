@@ -7,8 +7,6 @@ export default class Todo {
   constructor() {
     this.projects = [];
     this.projects.push(new Project('Inbox'));
-    this.projects.push(new Project('Today'));
-    this.projects.push(new Project('This Week'));
   }
 
   setProjects(projects) {

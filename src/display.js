@@ -2,7 +2,8 @@ import './styles.css';
 import Project from './project';
 import Task from './task';
 import Todo from './todos';
-import { add } from 'date-fns';
+import editIcon from './images/pencil.png'
+import deleteIcon from './images/delete.png'
 
 let todos = new Todo();
 
@@ -77,16 +78,20 @@ window.removeProjectForm = removeProjectForm;
 // causes the project form to appear
 export function addProject() {
 
-  const addProjectButton = document.getElementById('add-project-button');
+  const addProjectButton = document.getElementById('add-project-button')
   const addBtn = document.getElementById('add-button')
-  
+  const rmvBtn = document.getElementById('project-cancel')
+  const newProjectForm = document.getElementById('project-form')
+
   addProjectButton.addEventListener('click', function(){
-    const newProjectForm = document.getElementById('project-form');
     addBtn.innerHTML = 'Add'
-    newProjectForm.style.opacity = 1;
-    newProjectForm.setAttribute('onsubmit', 'return submitProjectForm()');
+    newProjectForm.style.opacity = 1
+    newProjectForm.setAttribute('onsubmit', 'return submitProjectForm()')
   })
 
+  rmvBtn.addEventListener('click', function() {
+    newProjectForm.style.opacity = 0
+  })
 }
 
 // for onsubmit function when adding new project
@@ -196,23 +201,64 @@ export function displayTasks() {
   const tasksContainer = document.createElement('div')
   tasksContainer.classList.add('tasks-container')
   const tasks = project.tasks;
-  
-  console.table(tasks)
+
+  let numOfClicks = 0;
 
   for(let task of tasks) {
     while(taskContent.firstChild)
       taskContent.removeChild(taskContent.lastChild)
     const taskContainer = document.createElement('div')
+    const drop = document.createElement('div');
+    drop.classList.add('drop')
+    
     taskContainer.classList.add('task-container')
     const taskTitle = task.getTitle();
     const taskDescription = task.getDescription();
-    const taskDueDate = task.getDueDate();
+    const taskDueDate = task.formatDate();
+    drop.innerHTML = `<strong>${taskTitle}</strong><div id="date">${taskDueDate}</div>`
 
-    taskContainer.innerHTML = `<strong>${taskTitle}</strong> <div id="task-date"><strong>Due date</strong></div> <i>${taskDescription}</i> <div id="date">${taskDueDate}</div>`
+    drop.addEventListener('click', function(){
+      if(numOfClicks % 2 == 0) {
+        taskDropdown.style.opacity = 1
+        taskContainer.style.marginBottom = '80px'
+      }
+        
+      else {
+        taskDropdown.style.opacity = 0
+        taskContainer.style.marginBottom = '10px'
+      }
+        
+      numOfClicks++
+      
+    })
+
+    // dropdown menu
+    const taskDropdown = document.createElement('div')
+    taskDropdown.classList.add('task-dropdown')
+    const icons = document.createElement('div')
+    const edit = new Image()
+    edit.src = editIcon
+    edit.classList.add('edit-icon')
+    icons.appendChild(edit)
+
+    taskDropdown.appendChild(icons)
+
+    taskDropdown.innerHTML = `<div> <div id="task-description">${taskDescription}</div> 
+    <div id="delete-icon"></div></div>   <div id="date-dropdown"><div id="task-date"><strong>Due date</strong> </div><div id="date">${taskDueDate}</div></div>`
+
+    taskDropdown.addEventListener('click', function() {
+      
+    })
+
+    taskContainer.appendChild(drop)
+
+    taskContainer.appendChild(taskDropdown)
+
     tasksContainer.appendChild(taskContainer)
   }
   
   taskContent.appendChild(tasksContainer)
 }
+
 
 
