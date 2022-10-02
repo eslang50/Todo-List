@@ -220,7 +220,7 @@ export function displayTasks() {
     drop.addEventListener('click', function(){
       if(numOfClicks % 2 == 0) {
         taskDropdown.style.opacity = 1
-        taskContainer.style.marginBottom = '80px'
+        taskContainer.style.marginBottom = '120px'
       }
         
       else {
@@ -232,28 +232,94 @@ export function displayTasks() {
       
     })
 
+
+
     // dropdown menu
     const taskDropdown = document.createElement('div')
     taskDropdown.classList.add('task-dropdown')
     const icons = document.createElement('div')
+    icons.classList.add('icons')
     const edit = new Image()
     edit.src = editIcon
     edit.classList.add('edit-icon')
     icons.appendChild(edit)
+    const del = new Image()
+    del.classList.add('delete-icon')
+    del.src = deleteIcon;
+    icons.appendChild(del)
 
-    taskDropdown.appendChild(icons)
+    del.addEventListener('click', function() {
+      tasksContainer.removeChild(taskContainer)
+      project.deleteTask(taskTitle)
+      console.table(tasks)
+      displayTasks()
+    })
 
-    taskDropdown.innerHTML = `<div> <div id="task-description">${taskDescription}</div> 
-    <div id="delete-icon"></div></div>   <div id="date-dropdown"><div id="task-date"><strong>Due date</strong> </div><div id="date">${taskDueDate}</div></div>`
+    const descIconContainer = document.createElement('div')
+    descIconContainer.classList.add('desc-icon-container')
+    const taskDescriptionText = document.createElement('div')
+    taskDescriptionText.classList.add('description')
+    taskDescriptionText.innerHTML = `${taskDescription}`
+    const taskTitleText = document.createElement('div')
+    taskTitleText.classList.add('task-title-text')
+    taskTitleText.innerHTML = `${taskTitle}`
 
-    taskDropdown.addEventListener('click', function() {
+    descIconContainer.appendChild(taskTitleText)
+    descIconContainer.appendChild(taskDescriptionText)
+    descIconContainer.appendChild(icons)
+    taskDropdown.appendChild(descIconContainer)
+
+    const dateDropdown = document.createElement('div')
+    dateDropdown.classList.add('date-dropdown')
+    const taskDate = document.createElement('div')
+    taskDate.classList.add('task-date')
+    taskDate.innerHTML = "Due Date"
+    const dueDate = document.createElement('div')
+    dueDate.classList.add('date')
+    dueDate.innerHTML = `${taskDueDate}`
+
+    dateDropdown.appendChild(taskDate)
+    dateDropdown.appendChild(dueDate)
+
+    edit.addEventListener('click', function() {
+      taskTitleText.setAttribute('contenteditable', true)
+      taskDescriptionText.setAttribute('contenteditable', true)
+      dueDate.setAttribute('contenteditable', true)
+
+      taskTitleText.style.cssText = "background-color: white; border-radius: 4px"
+      taskDescriptionText.style.cssText = "background-color: white; border-radius: 4px"
+      dueDate.style.cssText = "background-color: white; border-radius: 4px"
       
     })
 
+    // prevent new line from being created after enter key
+    taskTitleText.addEventListener('keydown', function(event) {
+      if(event.key === 'Enter') {
+        event.preventDefault()
+        taskTitleText.setAttribute('contenteditable', false)
+        taskTitleText.style.backgroundColor = 'rgb(235, 233, 233)'
+      }
+    })
+
+    taskDescriptionText.addEventListener('keydown', function(event) {
+      if(event.key === 'Enter') {
+        event.preventDefault();
+        taskDescriptionText.setAttribute('contenteditable', false)
+        taskDescriptionText.style.backgroundColor = 'rgb(235, 233, 233)'
+      }   
+    })
+
+    dueDate.addEventListener('keydown', function(event) {
+      if(event.key === 'Enter') {
+        event.preventDefault();
+        dueDate.setAttribute('contenteditable', false)
+        dueDate.style.backgroundColor = 'rgb(235, 233, 233)'
+      } 
+    })
+
+    taskDropdown.appendChild(dateDropdown)
     taskContainer.appendChild(drop)
-
     taskContainer.appendChild(taskDropdown)
-
     tasksContainer.appendChild(taskContainer)
   }
   

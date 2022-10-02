@@ -31,8 +31,8 @@ export default class Project {
   }
 
   deleteTask(taskTitle) {
-    return this.tasks.filter((task) => task.name !== taskTitle)
+    const del = this.tasks.find((task) => task.getTitle() === taskTitle)
+    this.tasks.splice(this.tasks.indexOf(del),1);
   }
 
-  
 }
