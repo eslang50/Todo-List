@@ -20,8 +20,7 @@
       </div>
       <form id="project-form" action="#" method="get">
         <div class="name-input">
-          <label for="name" id="project-label">Project name:</label>
-          <input id="name" type="text" required>
+          <input id="name" type="text" placeholder="Project name..." required>
           <div><button type="button" id="project-cancel">Cancel</button><button id="add-button" type="submit">Add</button></div>
         </div>
       </form>
@@ -35,9 +34,9 @@
           <label for="title">Title:</label>
           <input type="text" class="title-input" >
         </div>
-        <textarea name="description" class="task-description" ></textarea>
+        <textarea name="description" class="task-description" placeholder="Description..."></textarea>
         <input type="date" class="due-date-picker" >
-        <button id="cancel" type="button">Cancel</button><button id="add-task-button" type="submit">Add Task</button>
+        <button id="cancel" type="button">Cancel</button><button id="add-task-button" type="submit" disabled>Add Task</button>
       </form>
 
     </div>
