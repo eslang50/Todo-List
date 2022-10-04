@@ -151,10 +151,12 @@ export function displayProject() {
   }
 }
 
+// makes form appear after pressing + sign to add new task to project
 export function addTask() {
   const addTaskButton = document.getElementById('add-task');
   const addTaskForm = document.querySelector('.add-task-form');
   const cancelButton = document.getElementById('cancel');
+  const taskFormButton = document.getElementById('add-task-button')
   cancelButton.addEventListener('click', function() {
     addTaskForm.reset();
     addTaskForm.style.opacity = 0
@@ -162,12 +164,15 @@ export function addTask() {
   })
   
   addTaskButton.addEventListener('click', function() {
+    taskFormButton.textContent = 'Add Task'
     addTaskForm.setAttribute('onsubmit', 'return addTaskForm()')
+    taskFormButton.removeAttribute('disabled')
     addTaskForm.style.opacity = 1;
   })
 
 }
 
+// onsubmit form to retrieve values for adding new task
 export function addTaskForm() {
   const form = document.querySelector('.add-task-form')
   const projectHeader = document.getElementById('project-header')
@@ -187,11 +192,12 @@ export function addTaskForm() {
   displayTasks()
   
   form.reset();
-  // return false;
+  return false;
 }
 
 window.addTaskForm = addTaskForm;
 
+// displays task in each project
 export function displayTasks() {
   const projectHeader = document.getElementById('project-header')
 
@@ -201,22 +207,30 @@ export function displayTasks() {
   const tasksContainer = document.createElement('div')
   tasksContainer.classList.add('tasks-container')
   const tasks = project.tasks;
-
+  console.table(tasks)
   let numOfClicks = 0;
 
+  // iterate through each task in a project
   for(let task of tasks) {
     while(taskContent.firstChild)
       taskContent.removeChild(taskContent.lastChild)
     const taskContainer = document.createElement('div')
     const drop = document.createElement('div');
     drop.classList.add('drop')
-    
-    taskContainer.classList.add('task-container')
-    const taskTitle = task.getTitle();
-    const taskDescription = task.getDescription();
-    const taskDueDate = task.formatDate();
-    drop.innerHTML = `<strong>${taskTitle}</strong><div id="date">${taskDueDate}</div>`
 
+    taskContainer.classList.add('task-container')
+    let taskTitle = document.createElement('div')
+    taskTitle.innerHTML = task.getTitle();
+    let taskDescription = task.getDescription();
+    let taskDueDate = document.createElement('div')
+    taskDueDate.classList.add('task-due-date')
+    
+    taskDueDate.innerHTML = task.formatDate();
+      
+    drop.appendChild(taskTitle)
+    drop.appendChild(taskDueDate)
+
+    // for the dropdown to drop down and up every click
     drop.addEventListener('click', function(){
       if(numOfClicks % 2 == 0) {
         taskDropdown.style.opacity = 1
@@ -232,8 +246,6 @@ export function displayTasks() {
       
     })
 
-
-
     // dropdown menu
     const taskDropdown = document.createElement('div')
     taskDropdown.classList.add('task-dropdown')
@@ -247,10 +259,34 @@ export function displayTasks() {
     del.classList.add('delete-icon')
     del.src = deleteIcon;
     icons.appendChild(del)
+    
+    const updateTask = document.createElement('button')
+    updateTask.classList.add('update-task-button')
+    updateTask.innerHTML = 'Update'
 
+    updateTask.addEventListener('click', function() {
+      // edit task title
+      taskTitleText.setAttribute('contenteditable', false)
+      taskTitleText.setAttribute('placeholder', 'Task name...')
+      taskTitleText.style.backgroundColor = 'rgb(235, 233, 233)'
+      taskTitle = taskTitleText.textContent
+      task.setTitle(`${taskTitle}`)
+
+      // edit task description
+      taskDescriptionText.setAttribute('contenteditable', false)
+      taskDescriptionText.setAttribute('placeholder', 'Description...')
+      taskDescriptionText.style.backgroundColor = 'rgb(235, 233, 233)' 
+      task.setDescription(taskDescriptionText.textContent) 
+      
+      displayTasks(); // updates tasks
+    })
+
+    icons.appendChild(updateTask)
+
+    // delete current task
     del.addEventListener('click', function() {
       tasksContainer.removeChild(taskContainer)
-      project.deleteTask(taskTitle)
+      project.deleteTask(taskTitle.innerHTML)
       console.table(tasks)
       displayTasks()
     })
@@ -260,9 +296,9 @@ export function displayTasks() {
     const taskDescriptionText = document.createElement('div')
     taskDescriptionText.classList.add('description')
     taskDescriptionText.innerHTML = `${taskDescription}`
-    const taskTitleText = document.createElement('div')
+    let taskTitleText = document.createElement('div')
     taskTitleText.classList.add('task-title-text')
-    taskTitleText.innerHTML = `${taskTitle}`
+    taskTitleText.innerHTML = taskTitle.innerHTML
 
     descIconContainer.appendChild(taskTitleText)
     descIconContainer.appendChild(taskDescriptionText)
@@ -275,46 +311,32 @@ export function displayTasks() {
     taskDate.classList.add('task-date')
     taskDate.innerHTML = "Due Date"
     const dueDate = document.createElement('div')
+    dueDate.innerHTML = taskDueDate.innerHTML
     dueDate.classList.add('date')
-    dueDate.innerHTML = `${taskDueDate}`
 
     dateDropdown.appendChild(taskDate)
     dateDropdown.appendChild(dueDate)
 
+    // edit icon event lisenter to allow user to edit
     edit.addEventListener('click', function() {
       taskTitleText.setAttribute('contenteditable', true)
       taskDescriptionText.setAttribute('contenteditable', true)
-      dueDate.setAttribute('contenteditable', true)
+      const updateDueDate = document.createElement('input')
+
+      dueDate.removeChild(dueDate.lastChild)
+      updateDueDate.classList.add('update-date-picker')
+      updateDueDate.setAttribute('type', 'date')
+      
+      updateDueDate.addEventListener('change', function(event) {
+        console.log(event.target.value)
+        task.setDueDate(event.target.value)
+      })
+
+      dueDate.appendChild(updateDueDate)
 
       taskTitleText.style.cssText = "background-color: white; border-radius: 4px"
       taskDescriptionText.style.cssText = "background-color: white; border-radius: 4px"
-      dueDate.style.cssText = "background-color: white; border-radius: 4px"
       
-    })
-
-    // prevent new line from being created after enter key
-    taskTitleText.addEventListener('keydown', function(event) {
-      if(event.key === 'Enter') {
-        event.preventDefault()
-        taskTitleText.setAttribute('contenteditable', false)
-        taskTitleText.style.backgroundColor = 'rgb(235, 233, 233)'
-      }
-    })
-
-    taskDescriptionText.addEventListener('keydown', function(event) {
-      if(event.key === 'Enter') {
-        event.preventDefault();
-        taskDescriptionText.setAttribute('contenteditable', false)
-        taskDescriptionText.style.backgroundColor = 'rgb(235, 233, 233)'
-      }   
-    })
-
-    dueDate.addEventListener('keydown', function(event) {
-      if(event.key === 'Enter') {
-        event.preventDefault();
-        dueDate.setAttribute('contenteditable', false)
-        dueDate.style.backgroundColor = 'rgb(235, 233, 233)'
-      } 
     })
 
     taskDropdown.appendChild(dateDropdown)
@@ -325,6 +347,5 @@ export function displayTasks() {
   
   taskContent.appendChild(tasksContainer)
 }
-
 
 

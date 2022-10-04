@@ -1,3 +1,4 @@
+
 export default class Project {
   constructor(name) {
     this.name = name;
@@ -22,7 +23,7 @@ export default class Project {
     return this.tasks;
   }
 
-  getTasks(taskTitle) {
+  getTask(taskTitle) {
     return this.tasks.find((task) => task.getTitle() === taskTitle);
   }
 

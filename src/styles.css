@@ -118,7 +118,7 @@ body {
   opacity: 0;
   display: flex;
   justify-content: center;
-
+  margin-top: 10px;
 }
 
 
@@ -127,7 +127,7 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   width: 60%;
 }
 
@@ -213,6 +213,10 @@ body {
   grid-template-columns: 2fr 1fr;
 }
 
+.drop:nth-child(1) {
+  font-weight: 600;
+}
+
 .task-dropdown {
   position: absolute;
   left: 0;
@@ -248,7 +252,11 @@ input, textarea {
   margin-left: 10px;
 }
 
-#add-button, #cancel, #add-task-button, #project-cancel {
+.update-task-button {
+  margin-left: 4px;
+}
+
+#add-button, #cancel, #add-task-button, #project-cancel, .update-task-button {
   padding: 4px 10px;
   border-radius: 3px;
   cursor: pointer;
@@ -259,11 +267,16 @@ input, textarea {
   border: none;
 }
 
-#add-button:hover, #cancel:hover, #add-task-button:hover, #project-cancel:hover {
+#add-button:hover, #cancel:hover, #add-task-button:hover, #project-cancel:hover, .update-task-button:hover {
   background-color: darkblue;
 }
 
 .task-date, #date, .date {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.task-due-date {
   display: flex;
   justify-content: flex-end;
 }
@@ -306,4 +319,10 @@ input, textarea {
   gap: 5px;
   display: flex;
   flex-direction: column;
+}
+
+.update-date-picker {
+  display: flex;
+  justify-content: flex-end;
+  padding: 5px;
 }
