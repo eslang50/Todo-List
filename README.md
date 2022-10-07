@@ -9,7 +9,7 @@ With this App, you can:
 - Edit and update tasks
 - Delete both projects and tasks
 
-Live demo!
+Live [demo!](https://eslang50.github.io/Todo-List/)
 
-![Alt text](./src/images/Screenshot-1.png)
+![Alt text](/src/images/Screenshot-1.png)
 
