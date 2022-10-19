@@ -36,10 +36,4 @@ export default class Task {
     return `${day}/${week}/${year}`;
   }
 
-  // formatEditDate() {
-  //   const day = this.dueDate.split('/')[1];
-  //   const month = this.dueDate.split('/')[0]
-  //   const year = this.dueDate.split('/')[]
-  // }
-
 }

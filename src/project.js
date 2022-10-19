@@ -1,4 +1,3 @@
-
 export default class Project {
   constructor(name) {
     this.name = name;
@@ -6,10 +5,11 @@ export default class Project {
   }
 
   setName(name) {
-    if(name === '')
-      return
+    if (name === '') {
+      return;
+    }
     this.name = name;
-  } 
+  }
 
   getName() {
     return this.name;
@@ -32,8 +32,7 @@ export default class Project {
   }
 
   deleteTask(taskTitle) {
-    const del = this.tasks.find((task) => task.getTitle() === taskTitle)
-    this.tasks.splice(this.tasks.indexOf(del),1);
+    const del = this.tasks.find((task) => task.getTitle() === taskTitle);
+    this.tasks.splice(this.tasks.indexOf(del), 1);
   }
-
 }
