@@ -4,7 +4,7 @@ import Todo from './todos';
 
 export default class Storage {
   static saveTodoList(data) {
-    localStorage.setItem('todoList', JSON.stringify(data))
+    localStorage.setItem('todoList', JSON.stringify(data));
   }
 
   static getTodoList() {
@@ -16,7 +16,7 @@ export default class Storage {
     todoList.setProjects(
       Todo
         .getProjects()
-        .map((project) => Object.assign(new Project(), project))
+        .map((project) => Object.assign(new Project(), project));
     )
 
     todoList

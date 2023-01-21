@@ -1,4 +1,5 @@
 import './styles.css';
+import localStorage from 'localstorage-memory';
 import Project from './project';
 import Task from './task';
 import Todo from './todos';
@@ -6,11 +7,7 @@ import editIcon from './images/pencil.png';
 import deleteIcon from './images/delete.png';
 
 const todos = new Todo();
-// let todos = Storage.getTodoList()
 
-// localStorage.setItem('todos', JSON.stringify(todos))
-
-// displays projects on sidebar
 export function displayProjects() {
   const projects = document.getElementById('projects');
   projects.classList.add('project-list');
